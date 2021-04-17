@@ -57,7 +57,7 @@ function InstructorSelect({ onSelect }) {
       <div className="flex flex-col">
 
         <div className="mb-2 text-xl font-semibold">
-          <Link to={`instructor/${instructor}`}>{instructor}</Link>
+          <Link to={`instructor/${instructor}`}>{instructor || <span className="text-white select-none">.</span>}</Link>
         </div>
 
         <Omnibox category="instructors" filter={search_instructors} padding={0}>
