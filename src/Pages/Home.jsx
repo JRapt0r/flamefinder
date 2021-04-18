@@ -47,7 +47,7 @@ function Home() {
           <Link to="/departments" className="flex flex-row justify-center px-8 py-4 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow hover:shadow-md"><School/> <div>Departments</div></Link>
           <Link to="/instructors" className="flex flex-row justify-center px-8 py-4 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow hover:shadow-md"><Group/> <div>Instructors</div></Link>
           <Link to="/compare" className="flex flex-row justify-center px-8 py-4 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow hover:shadow-md"><StackedBarChart/> <div>Compare</div></Link>
-          <Link to="/About" className="flex flex-row justify-center px-8 py-4 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow hover:shadow-md"><Info/><div>About</div></Link>
+          <Link to="/about" className="flex flex-row justify-center px-8 py-4 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow hover:shadow-md"><Info/><div>About</div></Link>
         </div>
 
       </div>

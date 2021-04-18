@@ -5,7 +5,7 @@ import { BarChart, SmallExternalLink } from "../Icons";
 import { Chart } from "react-google-charts";
 
 import { Wave } from "react-css-spinners";
-import LoadingPlaceholder from "../LoadingPlaceholder";
+import LoadingPlaceholder from "../Placeholders/LoadingPlaceholder";
 
 import find_rmp from "../../Helpers/find_rmp";
 

@@ -28,11 +28,12 @@ function Omnibox({ category, filter, options, children, padding = 1 }) {
   return (
     <div className="flex flex-col">
       <div className="flex items-center w-full px-3 py-2 bg-white border border-gray-300 rounded-t shadow md:py-3">
-        <button className="focus-within:outline-none">
+        <button aria-label={`Search ${category}`} className="focus-within:outline-none">
           <div className="text-gray-500 hover:text-blue-700"><Search size={20} /></div>
         </button>
 
-        <input onKeyUp={filter} className={`w-full py-${padding} pl-4 font-medium outline-none focus:placeholder-blue-700 focus:outline-none`} type="search" autoFocus placeholder={`Search ${category}`} />
+        <input className={`w-full py-${padding} pl-4 font-medium outline-none focus:placeholder-blue-700 focus:outline-none`}
+          onKeyUp={filter} type="search" placeholder={`Search ${category}`} />
 
         {/* Category options */}
         {options &&

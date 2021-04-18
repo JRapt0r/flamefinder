@@ -5,7 +5,7 @@ import ClassCard from "../Components/Cards/ClassCard";
 import SearchBox from "../Components/SearchBox";
 
 import { Grid } from "react-css-spinners";
-import LoadingPlaceholder from "../Components/LoadingPlaceholder";
+import LoadingPlaceholder from "../Components/Placeholders/LoadingPlaceholder";
 import { SmallExternalLink } from "../Components/Icons";
 
 import construct_url from "../Helpers/construct_url";
@@ -54,10 +54,6 @@ function Instructor() {
       fetch(`${process.env.REACT_APP_SERVER_ENDPOINT}/instructor/${instructorID}`)
       .then(i => i.json())
       .then(instResp => {
-        if (instResp?.code) {
-          return history.push(`/error/${instResp.code}`);
-        }
-
         setInstData(instResp);
       })
       .catch(e3 => {
@@ -129,11 +125,11 @@ function Instructor() {
             </div>
             <div className="flex flex-col">
               <div className="text-sm text-gray-800">Average GPA</div>
-              <div className="text-lg font-semibold">{instData ? (instData.avg_gpa)?.toFixed(2) : <LoadingPlaceholder placeholder="4.00" length={1} />}</div>
+              <div className="text-lg font-semibold">{instData ? (instData.avg_gpa)?.toFixed(2) || "N/A" : <LoadingPlaceholder placeholder="4.00" length={1} />}</div>
             </div>
             <div className="flex flex-col">
               <div className="text-sm text-gray-800">DFW rate</div>
-              <div className="text-lg font-semibold">{instData ? <span>{instData.dfw_rate?.toFixed(2)}%</span> : <LoadingPlaceholder placeholder="2" length={5} />}</div>
+              <div className="text-lg font-semibold">{instData ? <div>{instData.dfw_rate?.toFixed(2) || "N/A"}</div> : <LoadingPlaceholder placeholder="2" length={5} />}</div>
             </div>
           </div>
         </div>

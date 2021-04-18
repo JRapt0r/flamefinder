@@ -4,13 +4,18 @@
 
 @font-face {
   font-family: "Inter";
-  src: local("Inter"), url(./Fonts/Inter-VariableFont.ttf) format("truetype");
+  font-style: normal;
   font-weight: 100 900;
+  src: local("Inter"), local("Inter Regular"), url(./Fonts/Inter-VariableFont.ttf) format("truetype");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
   src: local("Poppins"), url(./Fonts/Poppins-SemiBold.ttf) format("truetype");
+  font-display: swap;
 }
 
 body {

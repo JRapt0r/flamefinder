@@ -1,22 +1,27 @@
+// Lazily load pages
+import React, { Suspense, lazy } from "react";
+
 // React router
 import { Route, Switch } from "react-router-dom";
 
 // Components
+import SearchBox from "./Components/SearchBox";
+import GridPlaceholder from "./Components/Placeholders/GridPlaceholder";
 import { Navbar, NavItem } from "./Components/Navbar";
 
-// Pages
-import Home from "./Pages/Home"
-import About from "./Pages/About";
-import Compare from "./Pages/Compare";
-import Error from "./Pages/Error"
+// Lazily loaded pages
+const Home = lazy(() => import("./Pages/Home"));
+const About = lazy(() => import("./Pages/About"));
+const Error = lazy(() => import("./Pages/Error"));
+const Compare = lazy(() => import("./Pages/Compare"));
 
-import Class from "./Pages/Class";
-import Course from "./Pages/Course";
-import Instructor from "./Pages/Instructor"
+const Class = lazy(() => import("./Pages/Class"));
+const Course = lazy(() => import("./Pages/Course"));
+const Instructor = lazy(() => import("./Pages/Instructor"));
 
-import Departments from "./Pages/Departments"
-import Courses from "./Pages/Courses"
-import Instructors from "./Pages/Instructors";
+const Instructors = lazy(() => import("./Pages/Instructors"));
+const Departments = lazy(() => import("./Pages/Departments"));
+const Courses = lazy(() => import("./Pages/Courses"));
 
 function App() {
   return (
@@ -29,57 +34,76 @@ function App() {
 
       <main>
         <Switch>
-
           <Route path="/" exact>
-            <Home />
+            <Suspense fallback={<GridPlaceholder />}>
+              <Home />
+            </Suspense>
           </Route>
 
           <Route path="/about" exact>
-            <About />
+            <Suspense fallback={<GridPlaceholder />}>
+              <About />
+            </Suspense>
           </Route>
 
           <Route path="/compare" exact>
-            <Compare />
-          </Route>
-
-          <Route path="/courses" exact>
-            <Courses />
+            <Suspense fallback={<GridPlaceholder />}>
+              <Compare />
+            </Suspense>
           </Route>
 
           <Route path="/course/:courseID" exact>
-            <Course />
+            <Suspense fallback={<GridPlaceholder><SearchBox category="classes" /></GridPlaceholder>}>
+              <Course />
+            </Suspense>
           </Route>
 
           <Route path="/class/:classID">
-            <Class />
+            <Suspense fallback={<GridPlaceholder />}>
+              <Class />
+            </Suspense>
           </Route>
 
           <Route path="/departments" exact>
-            <Departments />
+            <Suspense fallback={<GridPlaceholder><SearchBox category="departments" /></GridPlaceholder>}>
+              <Departments />
+            </Suspense>
           </Route>
 
           <Route path="/department/:department">
-            <Courses />
+            <Suspense fallback={<GridPlaceholder><SearchBox category="courses" /></GridPlaceholder>}>
+              <Courses />
+            </Suspense>
           </Route>
 
           <Route path="/instructors" exact>
-            <Instructors />
+            <Suspense fallback={<GridPlaceholder><SearchBox category="instructors" /></GridPlaceholder>}>
+              <Instructors />
+            </Suspense>
           </Route>
 
           <Route path="/instructors/:letter">
-            <Instructors />
+            <Suspense fallback={<GridPlaceholder><SearchBox category="instructors" /></GridPlaceholder>}>
+              <Instructors />
+            </Suspense>
           </Route>
 
           <Route path="/instructor/:instructorID">
-            <Instructor />
+            <Suspense fallback={<GridPlaceholder />}>
+              <Instructor />
+            </Suspense>
           </Route>
 
           <Route path="/error/:code">
-            <Error />
+            <Suspense fallback={<GridPlaceholder />}>
+              <Error />
+            </Suspense>
           </Route>
 
           <Route path="*">
-            <Error />
+            <Suspense fallback={<GridPlaceholder />}>
+              <Error />
+            </Suspense>
           </Route>
 
         </Switch>

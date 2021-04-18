@@ -1,9 +1,10 @@
 import React from "react";
-import LoadingPlaceholder from "../LoadingPlaceholder";
+import LoadingPlaceholder from "../Placeholders/LoadingPlaceholder";
 import { Link } from "react-router-dom";
 
 function process_desc(desc) {
-  if (desc) {
+  if (desc)
+  {
     let matches = desc.match(/[A-Z]{2,4}[\u202F\u00A0]\d{2,3}/g);
     const split_desc = desc.split(/[A-Z]{2,4}[\u202F\u00A0]\d{2,3}/g);
     matches = matches?.map(m => m.replace(/\s/g, " "));
@@ -11,9 +12,8 @@ function process_desc(desc) {
     let output = [];
 
     if (matches) {
-      for (let i = 0; i < split_desc.length; ++i) {
+      for (let i = 0; i < split_desc.length; ++i)
         output.push(split_desc[i], <Link key={i.toString()} to={`/course/${matches[i]}`}>{matches[i]}</Link>);
-      }
 
       return <div>{output}</div>;
     }

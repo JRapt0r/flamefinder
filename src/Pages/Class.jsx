@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 
-import LoadingPlaceholder from "../Components/LoadingPlaceholder";
+import LoadingPlaceholder from "../Components/Placeholders/LoadingPlaceholder";
 
 import construct_url from "../Helpers/construct_url";
 import SimilarClasses from "../Components/Class/SimilarClasses";
