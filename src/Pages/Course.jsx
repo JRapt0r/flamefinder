@@ -2,9 +2,9 @@ import { React, useEffect, useState } from "react";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 
 import ClassCard from "../Components/Cards/ClassCard";
+import GridPlaceholder from "../Components/Placeholders/GridPlaceholder";
 import SearchBox from "../Components/SearchBox"
 
-import { Grid } from "react-css-spinners";
 import construct_url from "../Helpers/construct_url";
 
 function Course() {
@@ -86,7 +86,7 @@ function Course() {
       <div className="flex flex-col">
         <div className="mt-4 space-y-4 sm:flex-row">
           {data ? data.length === 0 ? <div className="my-4 text-2xl font-semibold text-center">No grades on record</div> :
-          create_cards(data) : <div className="flex justify-center place-items-center" style={{ minHeight: "calc(100vh - 129px)" }}><Grid color="#4338CA" /></div>}
+          create_cards(data) : <GridPlaceholder/>}
         </div>
       </div>
     </div>

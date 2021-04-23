@@ -3,8 +3,7 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 
 import CourseCard from "../Components/Cards/CourseCard";
 import SearchBox from "../Components/SearchBox"
-
-import { Grid } from "react-css-spinners";
+import GridPlaceholder from "../Components/Placeholders/GridPlaceholder";
 
 function  Courses() {
   const { department } = useParams();
@@ -80,7 +79,7 @@ function  Courses() {
 
       <div className="flex flex-col">
         <div className="mt-4 space-y-4 sm:flex-row">
-          {data ? create_cards() : <div className="flex justify-center place-items-center" style={{minHeight: "calc(100vh - 129px)"}}><Grid color="#4338CA" /></div>}
+          {data ? create_cards() : <GridPlaceholder/>}
         </div>
       </div>
     </div>

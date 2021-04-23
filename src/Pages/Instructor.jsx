@@ -4,12 +4,12 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import ClassCard from "../Components/Cards/ClassCard";
 import SearchBox from "../Components/SearchBox";
 
-import { Grid } from "react-css-spinners";
 import LoadingPlaceholder from "../Components/Placeholders/LoadingPlaceholder";
 import { SmallExternalLink } from "../Components/Icons";
 
 import construct_url from "../Helpers/construct_url";
 import find_rmp from "../Helpers/find_rmp";
+import GridPlaceholder from "../Components/Placeholders/GridPlaceholder";
 
 function Instructor() {
   const { instructorID } = useParams();
@@ -21,7 +21,6 @@ function Instructor() {
 
   const [instData, setInstData] = useState(null);
   const [numClasses, setNumClasses] = useState(null);
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -139,7 +138,7 @@ function Instructor() {
       <div className="flex flex-col md:col-span-4">
         <SearchBox category="classes" filter={search_classes} />
         <div className="mt-2 mb-8 md:flex-row">
-          {data ? create_cards(data) : <div className="flex justify-center place-items-center" style={{ minHeight: "calc(100vh - 129px)" }}><Grid color="#4338CA" /></div>}
+          {data ? create_cards(data) : <GridPlaceholder/>}
         </div>
       </div>
 

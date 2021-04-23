@@ -3,8 +3,8 @@ import { useHistory } from "react-router";
 
 import DepartmentCard from "../Components/Cards/DepartmentCard";
 import SearchBox from "../Components/SearchBox";
+import GridPlaceholder from "../Components/Placeholders/GridPlaceholder";
 
-import { Grid } from "react-css-spinners";
 import departments from "../Cache/departments.json";
 
 function Departments() {
@@ -45,7 +45,7 @@ function Departments() {
 
       <div className="flex flex-col min-w-full px-2 md:px-10">
         <div className="flex flex-row flex-wrap items-center justify-center mt-2">
-          {data ? data.map((d, i) => <DepartmentCard key={i.toString()} {...d} />) : <div className="flex justify-center place-items-center" style={{ minHeight: "calc(100vh - 129px)" }}><Grid color="#4338CA" /></div>}
+          {data ? data.map((d, i) => <DepartmentCard key={i.toString()} {...d} />) : <GridPlaceholder/>}
         </div>
       </div>
     </div>

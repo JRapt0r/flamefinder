@@ -1,54 +1,59 @@
 import { React, useState } from "react";
-import InstructorSelect from "../Components/InstructorSelect";
 
 import { Chart } from "react-google-charts";
 import { Wave } from "react-css-spinners";
+import MultiSelect from "../Components/MultiSelect";
 
 function Compare() {
-  const [first_data, setFD] = useState(null);
-  const [second_data, setSD] = useState(null);
+  const [instData, setInstData] = useState([]);
 
-  const construct_title = ({PrimaryInstructor: first}, {PrimaryInstructor: second}) => {
-    return `${first?.split(", ").reverse().join(" ")} vs ${second?.split(", ").reverse().join(" ")} (normalized)`;
+  const normalize = (input) => {
+    const total = (input?.A + input?.B + input?.C + input?.D + input?.F + input?.W);
+    const to_return = {
+      ...input,
+      A: Math.round((input?.A / total) * 100),
+      B: Math.round((input?.B / total) * 100),
+      C: Math.round((input?.C / total) * 100),
+      D: Math.round((input?.D / total) * 100),
+      F: Math.round((input?.F / total) * 100),
+      W: Math.round((input?.W / total) * 100),
+    };
+    return to_return;
+  }
+
+  const createData = (instructors) => {
+    const normalized = instructors.map(inst => normalize(inst));
+
+    const data = [
+      ['Letter Grade', ...normalized.map(data => data?.PrimaryInstructor)],
+      ['A', ...normalized.map(data => data?.A)],
+      ['B', ...normalized.map(data => data?.B)],
+      ['C', ...normalized.map(data => data?.C)],
+      ['D', ...normalized.map(data => data?.D)],
+      ['F', ...normalized.map(data => data?.F)],
+      ['W', ...normalized.map(data => data?.W)]
+    ];
+    setInstData(data);
   }
 
   return (
-    <div className="flex flex-col px-8 pt-6 pb-10 m-4 bg-white border border-gray-300 rounded-md shadow-xl">
+    <div className="flex flex-col p-4 pb-10 bg-white border border-gray-300 rounded-md shadow-xl md:pt-6 md:px-8 md:m-4">
       <div className="mb-3 text-4xl font-semibold">Compare instructors</div>
 
-      {/* Inputs */}
-      <div className="flex flex-col justify-between md:space-x-4 md:flex-row">
-        <div className="w-full mb-3 md:m-0 md:w-1/2">
-          <InstructorSelect onSelect={setFD}/>
-        </div>
+      <MultiSelect callback={createData} />
 
-        <div className="w-full mt-3 md:m-0 md:w-1/2">
-          <InstructorSelect onSelect={setSD}/>
-        </div>
-      </div>
-
-      {/* Chart */}
-      <div style={{ minHeight: "50vh" }} className="w-full mt-8">
-        {(first_data && second_data) && <Chart
+      <div className="w-full mt-3">
+        {<Chart
           width={'100%'}
           height={'60vh'}
           chartType="ColumnChart"
           loader={<div className="flex items-center justify-center min-w-full min-h-full">
-                  <Wave color="#1e40af" size={72} thickness={8} /></div>}
-          data={[
-            ['Letter Grade', first_data.PrimaryInstructor, second_data.PrimaryInstructor],
-            ['A', first_data?.A, second_data?.A],
-            ['B', first_data?.B, second_data?.B],
-            ['C', first_data?.C, second_data?.C],
-            ['D', first_data?.D, second_data?.D],
-            ['F', first_data?.F, second_data?.F],
-            ['W', first_data?.W, second_data?.W],
-          ]}
+            <Wave color="#1e40af" size={72} thickness={8} /></div>}
+          data={instData}
           options={{
             legend: { position: 'bottom' },
             chartArea: { width: '90%', height: '80%' },
-            colors: ['#00B5E2', '#001E62'],
-            title: construct_title(first_data, second_data),
+            title: "Grade distribution (normalized)",
             titleTextStyle: { fontName: 'Inter', fontSize: 16, color: "#4b5563", bold: false },
             tooltip: { textStyle: { fontName: "Inter" }, showColorCode: false },
           }}
