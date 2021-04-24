@@ -37,13 +37,14 @@ function Compare() {
   }
 
   return (
-    <div className="flex flex-col p-4 pb-10 bg-white border border-gray-300 rounded-md shadow-xl md:pt-6 md:px-8 md:m-4">
+    <div className="flex flex-col p-4 pb-10 bg-white border border-gray-300 rounded-md shadow-xl min-h-body md:min-h-0 md:pt-6 md:px-8 md:m-4">
       <div className="mb-3 text-4xl font-semibold">Compare instructors</div>
 
       <MultiSelect callback={createData} />
 
       <div className="w-full mt-3">
-        {<Chart
+        {instData[0]?.length > 1 ?
+        <Chart
           width={'100%'}
           height={'60vh'}
           chartType="ColumnChart"
@@ -57,7 +58,7 @@ function Compare() {
             titleTextStyle: { fontName: 'Inter', fontSize: 16, color: "#4b5563", bold: false },
             tooltip: { textStyle: { fontName: "Inter" }, showColorCode: false },
           }}
-        />}
+        /> : null}
       </div>
     </div>
   );

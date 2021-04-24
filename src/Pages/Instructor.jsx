@@ -108,11 +108,11 @@ function Instructor() {
         <div className="sticky top-4">
 
           <div className="flex flex-row items-center justify-between md:items-baseline md:flex-col">
-            <div className="text-2xl font-semibold">
+            <div className="text-xl font-semibold md:text-2xl">
               {instructorID.split(", ").reverse().join(" ")}
             </div>
 
-            <a className="flex flex-row items-center text-lg font-semibold tracking-wider text-blue-700 hover:text-blue-800" target="_blank" rel="noreferrer" href={find_rmp(instructorID)}>
+            <a className="flex flex-row items-center text-base font-semibold tracking-wider text-blue-700 hover:text-blue-800" target="_blank" rel="noreferrer" href={find_rmp(instructorID)}>
               RMP <SmallExternalLink size={18} />
             </a>
           </div>

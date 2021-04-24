@@ -79,7 +79,7 @@ function  Courses() {
 
       <div className="flex flex-col">
         <div className="mt-4 space-y-4 sm:flex-row">
-          {data ? create_cards() : <GridPlaceholder/>}
+          {data ? create_cards() : <GridPlaceholder offset={"156px"}/>}
         </div>
       </div>
     </div>

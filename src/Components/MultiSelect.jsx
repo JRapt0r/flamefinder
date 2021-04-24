@@ -26,7 +26,7 @@ function MultiSelect({callback, label}) {
     .then(r => r.json())
     .then(res => {
       if (res?.code) {
-        alert(JSON.stringify(res));
+        console.error(res);
         return;
       }
 
@@ -91,8 +91,10 @@ function MultiSelect({callback, label}) {
         case useCombobox.stateChangeTypes.InputBlur:
           if (selectedItem) {
             setInputValue("");
-            if (!selectedItems.includes(selectedItem.PrimaryInstructor))
+            if (!selectedItems.includes(selectedItem.PrimaryInstructor)) {
               addSelectedItem(selectedItem.PrimaryInstructor);
+              add_instructor(selectedItem.PrimaryInstructor);
+            }
           }
           break
         default:
@@ -101,28 +103,27 @@ function MultiSelect({callback, label}) {
     },
   });
 
-  // Fetch data when selectedItems change
-  useEffect(() => {
-    const recent = selectedItems[selectedItems.length - 1];
-    const url = construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/instructor/${recent}`, {compare: 1});
+  const remove_instructor = (inst) => {
+    setSelected(selected.filter(({PrimaryInstructor}) => inst !== PrimaryInstructor ));
+  }
 
-    if (recent?.length > 0)
-    {
-      fetch(url.toString())
-      .then(r => r.json())
-      .then(res => {
-        if (res?.code) {
-          alert(JSON.stringify(res));
-          return;
-        }
+  const add_instructor = (inst) => {
+    const url = construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/instructor/${inst}`, { compare: 1 });
 
-        setSelected([...selected, res]);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-    }
-  }, [selectedItems]);
+    fetch(url.toString())
+    .then(r => r.json())
+    .then(res => {
+      if (res?.code) {
+        alert(JSON.stringify(res));
+        return;
+      }
+
+      setSelected([...selected, res]);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
 
   useEffect(() => {
     callback(selected);
@@ -150,7 +151,7 @@ function MultiSelect({callback, label}) {
           results?.map((item, index) => (
             <li className={`cursor-pointer font-medium p-2 ${highlightedIndex === index ? 'bg-indigo-50 text-blue-800' : 'bg-transparent'}`}
               key={`${item}${index}`} {...getItemProps({ item, index })}>
-              {item?.PrimaryInstructor?.split(", ").reverse().join(" ")}
+              {item?.PrimaryInstructor}
             </li>
           ))}
       </ul>
@@ -160,7 +161,7 @@ function MultiSelect({callback, label}) {
           <div className="flex rounded-lg flex-row m-1 items-center px-2 py-0.5 font-medium text-blue-700 bg-transparent ring-1 ring-blue-700"
             key={`selected-item-${index}`} {...getSelectedItemProps({ selectedItem, index })}>
             <div className="mr-1">{selectedItem}</div>
-            <div className="cursor-pointer" onClick={e => { e.stopPropagation(); removeSelectedItem(selectedItem) }}><CloseIcon size={18} /></div>
+            <div className="cursor-pointer" onClick={e => { e.stopPropagation(); removeSelectedItem(selectedItem); remove_instructor(selectedItem); }}><CloseIcon size={18} /></div>
           </div>
         ))}
       </div>

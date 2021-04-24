@@ -86,7 +86,7 @@ function Course() {
       <div className="flex flex-col">
         <div className="mt-4 space-y-4 sm:flex-row">
           {data ? data.length === 0 ? <div className="my-4 text-2xl font-semibold text-center">No grades on record</div> :
-          create_cards(data) : <GridPlaceholder/>}
+          create_cards(data) : <GridPlaceholder offset={"156px"}/>}
         </div>
       </div>
     </div>

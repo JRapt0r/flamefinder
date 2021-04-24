@@ -6,18 +6,18 @@ import NeoOmniBox from "../Components/NeoOmniBox";
 
 function Home() {
   return (
-    <div className="flex flex-col items-center justify-center mx-10 my-8 md:my-16">
+    <div className="flex flex-col items-center justify-center mx-6 my-8 sm:mx-10 md:my-16">
 
       <div className="flex flex-col mb-4">
         <div className="flex flex-row items-center text-blue-700">
           <div className="hidden md:flex"><Flame size={64} /></div>
           <div className="flex md:hidden"><Flame size={48} /></div>
-          <div className="text-5xl md:text-7xl font-brand">FlameFinder</div>
+          <div className="text-5xl sm:text-6xl md:text-7xl font-brand">FlameFinder</div>
         </div>
         <div className="mt-2 text-xl font-semibold text-center max-w-prose">Schedule with ease</div>
       </div>
 
-      <div className="w-full px-2 md:px-10 lg:px-36">
+      <div className="w-full md:px-10 lg:px-36">
         <NeoOmniBox />
 
         <div className="flex flex-col justify-between my-8 space-y-4 font-semibold text-blue-700 md:space-y-0 md:flex-row">
