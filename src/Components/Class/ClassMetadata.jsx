@@ -11,8 +11,8 @@ import find_rmp from "../../Helpers/find_rmp";
 
 function ClassMetadata({ data, metaData }) {
   return (
-    <div>
-      <div className="flex flex-row flex-wrap order-1 mt-2 md:mt-3">
+    <div className="flex flex-col">
+      <div className="flex flex-row flex-wrap order-1 mt-2 md:mt-4">
 
         {/* Instructor */}
         <div className="flex flex-col items-start w-full mb-2 md:mb-0 md:w-1/3">

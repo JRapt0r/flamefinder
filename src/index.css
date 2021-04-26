@@ -3,19 +3,33 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Inter";
-  font-style: normal;
+	font-family: "Inter";
+	src: local("Inter"),
+       local("Inter Regular"),
+       url(./Fonts/Inter-roman.var.woff2) format("woff2 supports variations"),
+       url(./Fonts/Inter-roman.var.woff2) format("woff2-variations");
   font-weight: 100 900;
-  src: local("Inter"), local("Inter Regular"), url(./Fonts/Inter-VariableFont.ttf) format("truetype");
   font-display: swap;
+
+  /* Fallback to avoid layout shift */
+  fallback-font: "Arial";
+  fallback-font-letter-spacing: 0.031200000000000033em;
+  fallback-font-line-height: 1.2000000000000002;
+  fallback-font-line-height: 1.6;
 }
 
 @font-face {
   font-family: "Poppins";
-  font-style: normal;
+  src: local("Poppins"),
+       local("Poppins SemiBold"),
+       url(./Fonts/Poppins-SemiBold.woff2) format("woff2");
   font-weight: 600;
-  src: local("Poppins"), url(./Fonts/Poppins-SemiBold.ttf) format("truetype");
+  font-style: normal;
   font-display: swap;
+
+  /* Fallback to avoid layout shift */
+  fallback-font-letter-spacing: 0.055799999999999975em;
+  fallback-font-line-height: 1.5000000000000004;
 }
 
 body {

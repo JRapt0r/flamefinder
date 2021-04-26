@@ -53,7 +53,7 @@ function Class() {
   }, [classID, history]);
 
   return (
-    <div className="flex flex-col p-4 m-2 bg-white border border-gray-300 rounded-md shadow-xl md:px-8 md:pt-6 md:pb-10 md:m-6">
+    <div className="flex flex-col p-4 bg-white border-gray-300 rounded-md shadow sm:border sm:m-2 md:px-8 md:pt-6 md:pb-10 md:m-6">
 
       <div className="text-xl font-semibold text-blue-700 uppercase md:text-2xl">
         {data ? <Link className="hover:text-blue-800" to={`/course/${data.CRSSUBJCD} ${data.CRSNBR}`}>{data.CRSSUBJCD} {data.CRSNBR}</Link> : <LoadingPlaceholder length={4} />}

@@ -57,7 +57,6 @@ function MultiSelect({callback, label}) {
 
   const {
     isOpen,
-    getToggleButtonProps,
     getLabelProps,
     getMenuProps,
     getInputProps,
@@ -78,6 +77,8 @@ function MultiSelect({callback, label}) {
             ...changes,
             isOpen: false, // close menu open after selection.
           }
+        default:
+          break;
       }
       return changes
     },

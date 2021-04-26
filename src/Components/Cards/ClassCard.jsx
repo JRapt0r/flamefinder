@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function ClassCard({ CRSNBR, CRSTITLE, CRSSUBJCD, SEASON, YEAR, avg_gpa, PrimaryInstructor }) {
   return (
     <Link to={`/class/${CRSSUBJCD}+${CRSNBR}+${PrimaryInstructor}+${SEASON}+${YEAR}`}>
-      <div style={{ minWidth: "25rem", minHeight: "13rem" }} className="flex flex-col w-auto py-6 m-2 transition-all transform bg-white border border-gray-300 rounded-lg shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 ring-black">
+      <div style={{ minWidth: "25rem", minHeight: "13rem" }} className="flex flex-col w-auto py-6 my-2 transition-all transform bg-white border border-gray-300 rounded-lg shadow-md cursor-pointer md:m-2 hover:shadow-xl hover:-translate-y-1 ring-black">
         <div className="px-4 font-semibold">
           <div className="text-blue-700 md:text-lg">{CRSSUBJCD} {CRSNBR}</div>
           <div className="text-lg tracking-wide md:text-xl">{CRSTITLE}</div>

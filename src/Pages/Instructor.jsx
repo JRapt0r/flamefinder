@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 
-import ClassCard from "../Components/Cards/ClassCard";
 import SearchBox from "../Components/SearchBox";
 
 import LoadingPlaceholder from "../Components/Placeholders/LoadingPlaceholder";
@@ -10,6 +9,7 @@ import { SmallExternalLink } from "../Components/Icons";
 import construct_url from "../Helpers/construct_url";
 import find_rmp from "../Helpers/find_rmp";
 import GridPlaceholder from "../Components/Placeholders/GridPlaceholder";
+import { create_course_cards } from "../Helpers/create_cards";
 
 function Instructor() {
   const { instructorID } = useParams();
@@ -75,30 +75,6 @@ function Instructor() {
       setData(index.search(input));
   }
 
-  const create_cards = () => {
-    if (data.length === 0) return;
-
-    let level = `${data[0]?.SEASON} ${data[0]?.YEAR}`;
-    let layers = [];
-    let current_layer = [];
-
-    data.forEach((d, i) => {
-
-      if (level !== `${d.SEASON} ${d.YEAR}`) {
-        layers.push(<div key={`${level}XX`} className="my-4 text-3xl font-bold text-center">{level}</div>);
-        layers.push(<div key={`${level}YY`} className="flex flex-row flex-wrap justify-center pb-4 border-b-2">{current_layer}</div>);
-        current_layer = [];
-        level = `${d.SEASON} ${d.YEAR}`;
-      }
-
-      current_layer.push(<ClassCard key={i.toString()} {...d} />);
-    });
-
-    layers.push(<div key={`${level}XX`} className="my-4 text-3xl font-bold text-center">{level}</div>);
-    layers.push(<div key={`${level}YY`} className="flex flex-row flex-wrap justify-center">{current_layer}</div>);
-    return layers;
-  }
-
   return (
     <div className="grid md:grid-cols-5 md:min-h-body">
 
@@ -128,7 +104,7 @@ function Instructor() {
             </div>
             <div className="flex flex-col">
               <div className="text-sm text-gray-800">DFW rate</div>
-              <div className="text-lg font-semibold">{instData ? <div>{instData.dfw_rate?.toFixed(2) || "N/A"}</div> : <LoadingPlaceholder placeholder="2" length={5} />}</div>
+              <div className="text-lg font-semibold">{instData ? <div>{instData.dfw_rate ? `${instData.dfw_rate?.toFixed(2)}%` : null || "N/A"}</div> : <LoadingPlaceholder placeholder="2" length={5} />}</div>
             </div>
           </div>
         </div>
@@ -138,7 +114,7 @@ function Instructor() {
       <div className="flex flex-col md:col-span-4">
         <SearchBox category="classes" filter={search_classes} />
         <div className="mt-2 mb-8 md:flex-row">
-          {data ? create_cards(data) : <GridPlaceholder/>}
+          {data ? create_course_cards(data) : <GridPlaceholder/>}
         </div>
       </div>
 

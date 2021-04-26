@@ -37,14 +37,14 @@ function CourseCard({ CODE, CRSTITLE, CLASSCOUNT }) {
     <Link to={`/course/${CODE}`}>
       <Card CLASSCOUNT={CLASSCOUNT}>
         <div className="px-4 font-semibold">
-          <div className="text-lg text-blue-700">{CODE}</div>
-          <div className="text-xl tracking-wide">{CRSTITLE}</div>
+          <div className="text-blue-700 md:text-lg">{CODE}</div>
+          <div className="text-lg tracking-wide md:text-xl">{CRSTITLE}</div>
         </div>
 
         <div className="flex flex-col flex-wrap justify-between min-w-full px-4">
           <div className="flex flex-col pt-4">
-            <div className="font-medium tracking-wide text-gray-600">Num Classes</div>
-            <div className="text-lg font-semibold tracking-wide text-blue-700">{CLASSCOUNT ? CLASSCOUNT : 0}</div>
+            <div className="text-sm font-medium tracking-wide text-gray-600 md:text-base">Num Classes</div>
+            <div className="font-semibold tracking-wide text-blue-700 md:text-lg">{CLASSCOUNT ? CLASSCOUNT : 0}</div>
           </div>
         </div>
       </Card>

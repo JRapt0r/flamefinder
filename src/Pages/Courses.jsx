@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from "react";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 
-import CourseCard from "../Components/Cards/CourseCard";
 import SearchBox from "../Components/SearchBox"
 import GridPlaceholder from "../Components/Placeholders/GridPlaceholder";
+import { create_dept_cards } from "../Helpers/create_cards";
 
 function  Courses() {
   const { department } = useParams();
@@ -50,36 +50,13 @@ function  Courses() {
       setData(index.search(input));
   }
 
-  const create_cards = () => {
-    if (data.length === 0) return;
-
-    let level = Math.floor(data[0]?.CRSNBR * 0.01);
-    let layers = [];
-    let current_layer = [];
-
-    data.forEach((d, i) => {
-      if ( level !== (Math.floor(d.CRSNBR * 0.01)) ) {
-        layers.push(<div key={`${level}XX`} className="my-4 text-3xl font-bold text-center">{level}XX Level</div>);
-        layers.push(<div key={`${level}YY`} className="flex flex-row flex-wrap justify-center pb-4 border-b-2">{current_layer}</div>);
-        current_layer = [];
-        level = Math.floor(d.CRSNBR * 0.01);
-      }
-
-      current_layer.push(<CourseCard key={i.toString()} {...d} />);
-    });
-
-    layers.push(<div key={`${level}XX`} className="my-4 text-3xl font-bold text-center">{level}XX Level</div>);
-    layers.push(<div key={`${level}YY`} className="flex flex-row flex-wrap justify-center">{current_layer}</div>);
-    return layers;
-  }
-
   return (
     <div className="pb-8">
       <SearchBox category="courses" filter={search_courses} />
 
       <div className="flex flex-col">
         <div className="mt-4 space-y-4 sm:flex-row">
-          {data ? create_cards() : <GridPlaceholder offset={"156px"}/>}
+          {data ? create_dept_cards(data) : <GridPlaceholder offset={"156px"}/>}
         </div>
       </div>
     </div>

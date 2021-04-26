@@ -37,7 +37,7 @@ function Compare() {
   }
 
   return (
-    <div className="flex flex-col p-4 pb-10 bg-white border border-gray-300 rounded-md shadow-xl min-h-body md:min-h-0 md:pt-6 md:px-8 md:m-4">
+    <div className="flex flex-col p-4 bg-white border-gray-300 rounded-md shadow sm:border sm:m-2 md:px-8 md:pt-6 md:pb-10 md:m-6">
       <div className="mb-3 text-4xl font-semibold">Compare instructors</div>
 
       <MultiSelect callback={createData} />

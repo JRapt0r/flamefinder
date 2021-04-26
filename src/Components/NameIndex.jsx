@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function Index() {
+function NameIndex() {
   return (
-    <div className="grid grid-flow-col grid-rows-2 mx-2 my-4 text-lg font-semibold text-blue-700 bg-white border border-gray-300 rounded shadow md:mx-6 md:grid-rows-none">
+    <div className="grid grid-flow-col grid-rows-2 my-4 text-lg font-semibold text-blue-700 bg-white border-t border-b border-gray-300 shadow md:border md:rounded md:mx-6 md:grid-rows-none">
       <NavLink activeClassName="bg-indigo-50" className="flex items-center justify-center px-2 py-2 md:py-4 hover:bg-indigo-50" to="/instructors/A">A</NavLink>
       <NavLink activeClassName="bg-indigo-50" className="flex items-center justify-center px-2 py-2 md:py-4 hover:bg-indigo-50" to="/instructors/B">B</NavLink>
       <NavLink activeClassName="bg-indigo-50" className="flex items-center justify-center px-2 py-2 md:py-4 hover:bg-indigo-50" to="/instructors/C">C</NavLink>
@@ -34,4 +34,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default NameIndex;
