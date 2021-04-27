@@ -121,7 +121,7 @@ function ClassMetadata({ data, metaData }) {
           <div className="flex flex-col">
             <div className="font-medium text-gray-600">Average GPA</div>
             <div className="font-semibold md:text-xl">
-              {data ? (data.avg_gpa)?.toFixed(2) : <LoadingPlaceholder placeholder="4.00" length={1} />}
+              {data ? (data.avg_gpa ? (data.avg_gpa)?.toFixed(2) : "N/A") : <LoadingPlaceholder placeholder="4.00" length={1} />}
             </div>
           </div>
           <div className="flex flex-col items-end">

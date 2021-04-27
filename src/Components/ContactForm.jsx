@@ -20,6 +20,11 @@ function ContactForm() {
     })
     .then(response => response.text()).then(res => {
       setResult(res);
+
+      // Reset form
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("message").value = "";
     })
     .catch(err => {
       setResult(err);
