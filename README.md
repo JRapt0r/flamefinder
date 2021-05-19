@@ -3,7 +3,7 @@
   <a href="https://flamefinder.xyz" target="_blank">
     <img src="https://i.imgur.com/7QvYWYr.png" width="700px">
     <br>
-    Live Demo
+    Live Site
   </a>
 </p>
 
@@ -26,6 +26,9 @@ FlameFinder is not associated with UIC or the University of Illinois system.
 ## Contributing
 
 ``` bash
+# Create .env file for server endpoint
+echo "VITE_SERVER_ENDPOINT = 'http://localhost:5001'" >> .env
+
 # install dependencies
 npm install # or yarn
 
@@ -34,9 +37,6 @@ npm run dev
 
 # build for production
 npm run build
-
-# Create .env file for server endpoint
-echo "VITE_SERVER_ENDPOINT = 'http://localhost:5001'" >> .env
 ```
 
 Known issues
