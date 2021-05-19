@@ -46,6 +46,12 @@ function App() {
             </Suspense>
           </Route>
 
+          <Route path="/compare" exact>
+            <Suspense fallback={<GridPlaceholder />}>
+              <Compare type="instructors" />
+            </Suspense>
+          </Route>
+
           <Route path="/compare/instructors" exact>
             <Suspense fallback={<GridPlaceholder />}>
               <Compare type="instructors" />
