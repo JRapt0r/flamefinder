@@ -29,17 +29,17 @@ function NeoOmniBox({label = false, height = 1}) {
       return;
     }
 
-    const url = new URL(input.trim(), `${process.env.REACT_APP_SERVER_ENDPOINT}/search/`);
+    const url = new URL(input.trim(), `${import.meta.env.VITE_SERVER_ENDPOINT}/search/`);
 
     fetch(url.toString())
     .then(r => r.json())
     .then(res => {
       if (res?.code) {
         setItems([]);
-        return;
       }
-
-      setItems(res);
+      else {
+        setItems(res);
+      }
     })
     .catch(err => {
       setItems([]);
@@ -69,7 +69,8 @@ function NeoOmniBox({label = false, height = 1}) {
                   <Search size={20} />
                 </div>
               </button>
-              <input {...getInputProps()} className={`w-full py-${height} pl-4 font-medium outline-none focus:placeholder-blue-700 focus:outline-none`} type="search" placeholder="Search courses" />
+              <label className="sr-only" {...getLabelProps()}>Search classes:</label>
+              <input {...getInputProps({})} className={`w-full py-${height} pl-4 font-medium outline-none focus:placeholder-blue-700 focus:outline-none`} type="search" placeholder="Search courses" />
             </div>
 
             {/* Results */}

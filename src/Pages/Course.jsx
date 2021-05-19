@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 
 import GridPlaceholder from "../Components/Placeholders/GridPlaceholder";
@@ -19,26 +19,31 @@ function Course() {
     window.scrollTo(0, 0);
 
     const [dpt, nbr] = courseID.split(" ");
-    const url = construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/classes`, {
+    const url = construct_url(`${import.meta.env.VITE_SERVER_ENDPOINT}/classes`, {
       'department': dpt,
       'course_number': nbr
     });
 
     fetch(url).then(r => r.json()).then(res => {
-      import("js-search").then(({ Search }) => {
-        const index = new Search("index");
-        index.addIndex("PrimaryInstructor");
-        index.addIndex("CRSTITLE");
+      if (res?.code) {
+        return history.push(`/error/${res.code}`);
+      }
+      else {
+        import("js-search").then(({ Search }) => {
+          const index = new Search("index");
+          index.addIndex("PrimaryInstructor");
+          index.addIndex("CRSTITLE");
 
-        index.addDocuments([...res.map((r, i) => ({ ...r, index: i }))]);
+          index.addDocuments([...res.map((r, i) => ({ ...r, index: i }))]);
 
-        setIndex(index);
-        setData(res);
-      })
-      .catch(e2 => {
-        console.error(e2);
-        return history.push("/error/400");
-      });
+          setIndex(index);
+          setData(res);
+        })
+        .catch(e2 => {
+          console.error(e2);
+          return history.push("/error/400");
+        });
+      }
     })
     .catch(e1 => {
       console.error(e1);

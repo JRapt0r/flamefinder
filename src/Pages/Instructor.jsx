@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 
 import SearchBox from "../Components/SearchBox";
@@ -25,7 +25,7 @@ function Instructor() {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const url = construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/classes`, {
+    const url = construct_url(`${import.meta.env.VITE_SERVER_ENDPOINT}/classes`, {
       'instructor': instructorID
     });
 
@@ -50,7 +50,7 @@ function Instructor() {
 
       setNumClasses(res.length);
 
-      fetch(`${process.env.REACT_APP_SERVER_ENDPOINT}/instructor/${instructorID}`)
+      fetch(`${import.meta.env.VITE_SERVER_ENDPOINT}/instructor/${instructorID}`)
       .then(i => i.json())
       .then(instResp => {
         setInstData(instResp);
@@ -104,7 +104,7 @@ function Instructor() {
             </div>
             <div className="flex flex-col">
               <div className="text-sm text-gray-800">DFW rate</div>
-              <div className="text-lg font-semibold">{instData ? <div>{instData.dfw_rate ? `${instData.dfw_rate?.toFixed(2)}%` : null || "N/A"}</div> : <LoadingPlaceholder placeholder="2" length={5} />}</div>
+              <div className="text-lg font-semibold">{instData ? <div>{instData.dfw_rate === null ? "N/A" : `${instData.dfw_rate?.toFixed(2)}%`}</div> : <LoadingPlaceholder placeholder="2" length={5} />}</div>
             </div>
           </div>
         </div>

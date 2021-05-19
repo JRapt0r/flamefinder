@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 
 import LoadingPlaceholder from "../Components/Placeholders/LoadingPlaceholder";
@@ -26,14 +26,14 @@ function Class() {
       'year': year,
     };
 
-    fetch(construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/class`, params))
+    fetch(construct_url(`${import.meta.env.VITE_SERVER_ENDPOINT}/class`, params))
     .then(r => r.json())
     .then(res => {
-      if (res?.code === 404) {
-        return history.push("/error/404");
+      if (res?.code) {
+        return history.push(`/error/${res.code}`);
       }
       else {
-        const url = construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/course_info`,
+        const url = construct_url(`${import.meta.env.VITE_SERVER_ENDPOINT}/course_info`,
         { "department": res.CRSSUBJCD, "course_number": res.CRSNBR });
 
         fetch(url).then(r1 => r1.json()).then(r2 => {
@@ -53,18 +53,16 @@ function Class() {
   }, [classID, history]);
 
   return (
-    <div className="flex flex-col p-4 bg-white border-gray-300 rounded-md shadow sm:border sm:m-2 md:px-8 md:pt-6 md:pb-10 md:m-6">
+    <div className="flex flex-col p-4 bg-white border-gray-300 rounded-md shadow sm:border sm:m-2 md:px-8 md:pt-6 md:pb-10 md:m-4">
 
-      <div className="text-xl font-semibold text-blue-700 uppercase md:text-2xl">
-        {data ? <Link className="hover:text-blue-800" to={`/course/${data.CRSSUBJCD} ${data.CRSNBR}`}>{data.CRSSUBJCD} {data.CRSNBR}</Link> : <LoadingPlaceholder length={4} />}
+      <div className="text-xl font-semibold uppercase md:text-2xl">
+        {data ? <Link className="text-blue-700 hover:text-blue-600" to={`/course/${data.CRSSUBJCD} ${data.CRSNBR}`}>{data.CRSSUBJCD} {data.CRSNBR}</Link> : <LoadingPlaceholder length={4} />}
       </div>
 
       <div className="text-3xl font-semibold md:text-4xl">{metaData ? metaData.CRSTITLE : <LoadingPlaceholder length={16} />}</div>
 
       <ClassMetadata data={data} metaData={metaData}/>
-
       <CourseDescription course_desc={metaData?.CRSSUBJDESC}/>
-
       <SimilarClasses classes={data?.similar_class} />
     </div>
   );

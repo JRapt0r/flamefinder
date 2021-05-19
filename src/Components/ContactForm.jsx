@@ -13,7 +13,7 @@ function ContactForm() {
       message: fd.get("message"),
     };
 
-    fetch(`${process.env.REACT_APP_SERVER_ENDPOINT}/contact/`, {
+    fetch(`${import.meta.env.VITE_SERVER_ENDPOINT}/contact/`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-type": "application/json; charset=UTF-8" }
@@ -34,17 +34,17 @@ function ContactForm() {
   return (
     <div className="flex mb-8 lg:mb-0">
       <div className="w-full mx-auto">
-        <div className="p-5 mx-4 my-4 bg-white border rounded-md shadow-md">
+        <div className="p-5 mt-4 bg-white border border-gray-300 rounded-md shadow sm:m-2 md:my-4 md:mr-4">
           <div className="text-center">
-            <h1 className="my-2 text-3xl font-brand">Contact Us</h1>
-            <p className="text-gray-400">Fill out the form below to send us a message.</p>
+            <h1 className="my-2 text-3xl font-brand">Contact</h1>
+            <p className="text-gray-400">Fill out the form below to message us</p>
           </div>
 
           <div className="m-7">
             <form id="formElem" onSubmit={submit_msg} action="" method="POST">
               <div className="mb-6">
                 <label htmlFor="name" className="block mb-2 text-sm text-gray-600">Full Name</label>
-                <input type="text" name="name" id="name" placeholder="John Smith" required className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 focus:border-indigo-200" />
+                <input type="text" name="name" id="name" placeholder="Your name" required className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 focus:border-indigo-200" />
               </div>
 
               <div className="mb-6">

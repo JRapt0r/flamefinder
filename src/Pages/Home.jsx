@@ -24,7 +24,7 @@ function Home() {
         <div className="flex flex-col justify-between my-8 space-y-4 font-semibold text-blue-700 3xl:text-lg md:space-y-0 md:flex-row">
           <Link to="/departments" className="flex flex-row justify-center px-8 py-3 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow md:py-4 hover:shadow-md"><School /> <div>Departments</div></Link>
           <Link to="/instructors" className="flex flex-row justify-center px-8 py-3 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow md:py-4 hover:shadow-md"><Group /> <div>Instructors</div></Link>
-          <Link to="/compare" className="flex flex-row justify-center px-8 py-3 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow md:py-4 hover:shadow-md"><StackedBarChart /> <div>Compare</div></Link>
+          <Link to="/compare/instructors" className="flex flex-row justify-center px-8 py-3 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow md:py-4 hover:shadow-md"><StackedBarChart /> <div>Compare</div></Link>
           <Link to="/about" className="flex flex-row justify-center px-8 py-3 space-x-2 transition-shadow bg-white border border-gray-300 rounded shadow md:py-4 hover:shadow-md"><Info /><div>About</div></Link>
         </div>
       </div>

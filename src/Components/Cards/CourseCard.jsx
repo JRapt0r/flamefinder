@@ -7,22 +7,22 @@ function Card({ children: body, CLASSCOUNT }) {
   switch (CLASSCOUNT)
   {
     case null:
-      output = (<div style={{ "minWidth": "25rem", "maxWidth": "25rem", "minHeight": "13rem" }} className="flex flex-col w-auto py-3.5 m-2 transition-all transform bg-white border border-gray-300 rounded-lg shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 ring-black">{body}</div>);
+      output = (<div className="flex flex-col max-w-[22rem] min-w-[22rem] min-h-[13rem] md:min-w-[25rem] w-auto py-3.5 m-2 transition-all transform bg-white border border-gray-300 rounded-lg shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 ring-black">{body}</div>);
       break;
     case 1:
-      output = (<div style={{ "minWidth": "25rem", "maxWidth": "25rem", "minHeight": "13rem" }} className="flex flex-col w-auto py-4 m-2 transition-all transform bg-white border border-gray-300 rounded-lg shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 ring-black">{body}</div>);
+      output = (<div className="flex flex-col max-w-[22rem] min-w-[22rem] min-h-[13rem] md:min-w-[25rem] w-auto py-4 m-2 transition-all transform bg-white border border-gray-300 rounded-lg shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 ring-black">{body}</div>);
       break;
     case 2:
-      output = (<div style={{ "minWidth": "25rem", "maxWidth": "25rem", "minHeight": "13rem" }} className="flex flex-col m-2 transition-shadow bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg group">
-                  <div style={{ "minWidth": "25rem", "maxWidth": "25rem", "minHeight": "13rem" }} className="flex py-4 flex-col transform -translate-y-0.5 group-hover:-translate-y-1.5 transition-transform bg-white border border-gray-300 rounded-lg">
+      output = (<div className="flex flex-col max-w-[22rem] min-w-[22rem] min-h-[13rem] md:min-w-[25rem] m-2 transition-shadow bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg group">
+                  <div className="flex py-4 max-w-[22rem] min-w-[22rem] min-h-[13rem] md:min-w-[25rem] flex-col transform -translate-y-0.5 group-hover:-translate-y-1.5 transition-transform bg-white border border-gray-300 rounded-lg">
                     {body}
                   </div>
                 </div>);
       break;
     default:
-      output = (<div style={{ "minWidth": "25rem", "maxWidth": "25rem", "minHeight": "13rem" }} className="flex flex-col m-2 transition-shadow bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg group">
-                 <div style={{ "minWidth": "25rem", "maxWidth": "25rem", "minHeight": "13rem" }} className="flex flex-col transform -translate-y-0.5 group-hover:-translate-y-1.5 transition-transform bg-white border border-gray-300 rounded-lg">
-                   <div style={{ "minWidth": "25rem", "maxWidth": "25rem", "minHeight": "13rem" }} className="flex py-4 flex-col transform -translate-y-0.5 group-hover:-translate-y-1.5 transition-transform bg-white border border-gray-300 rounded-lg">
+      output = (<div className="flex flex-col max-w-[22rem] min-w-[22rem] min-h-[13rem] md:min-w-[25rem] m-2 transition-shadow bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg group">
+                 <div className="flex flex-col max-w-[22rem] min-w-[22rem] min-h-[13rem] md:min-w-[25rem] transform -translate-y-0.5 group-hover:-translate-y-1.5 transition-transform bg-white border border-gray-300 rounded-lg">
+                   <div className="flex py-4 max-w-[22rem] min-w-[22rem] min-h-[13rem] md:min-w-[25rem] flex-col transform -translate-y-0.5 group-hover:-translate-y-1.5 transition-transform bg-white border border-gray-300 rounded-lg">
                     {body}
                    </div>
                  </div>

@@ -19,8 +19,8 @@ function ClassMetadata({ data, metaData }) {
           <div className="flex flex-col">
             <div className="font-medium text-gray-600">Instructor</div>
             <div className="flex flex-row font-semibold md:text-xl">
-              {data ? <Link to={`/instructor/${data.PrimaryInstructor}`}>{data.PrimaryInstructor?.split(", ").reverse().join(" ")}</Link> : <LoadingPlaceholder length={11} />}
-              {data ? <a className="flex flex-row items-center ml-1 text-blue-700 hover:text-blue-800" target="_blank" rel="noreferrer" href={find_rmp(data.PrimaryInstructor)}> (RMP <SmallExternalLink size={18} />)</a> : <LoadingPlaceholder length={4} />}
+              {data ? <Link className="hover:text-gray-700" to={`/instructor/${data.PrimaryInstructor}`}>{data.PrimaryInstructor?.split(", ").reverse().join(" ")}</Link> : <LoadingPlaceholder length={11} />}
+              {data ? <a className="flex flex-row items-center ml-1 text-blue-700 hover:text-blue-600" target="_blank" rel="noreferrer" href={find_rmp(data.PrimaryInstructor)}> (RMP <SmallExternalLink size={18} />)</a> : <LoadingPlaceholder length={4} />}
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@ function ClassMetadata({ data, metaData }) {
         <div className="flex flex-col w-1/2 md:items-center md:w-1/3">
           <div className="flex flex-col">
             <div className="font-medium text-gray-600">Department</div>
-            <div className="font-semibold md:text-xl">
+            <div className="font-semibold md:text-xl hover:text-gray-700">
               {data ? <Link to={`/department/${data.CRSSUBJCD}`}>{data.DEPTNAME}</Link> : <LoadingPlaceholder length={5} />}
             </div>
           </div>

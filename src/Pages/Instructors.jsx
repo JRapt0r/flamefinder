@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import NameIndex from "../Components/NameIndex";
 
@@ -21,7 +21,7 @@ function Instructors() {
 
   useEffect(() => {
     const curr_letter = letter ? letter : "A";
-    const url = construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/instructors/${curr_letter}`);
+    const url = construct_url(`${import.meta.env.VITE_SERVER_ENDPOINT}/instructors/${curr_letter}`);
 
     fetch(url)
     .then(r => r.json())
@@ -34,15 +34,15 @@ function Instructors() {
 
   const search_instructors = ({ target: { value } }) => {
     const input = value.trim();
-    const url = construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/instructors/${input}`, {"search": 1});
+    const url = construct_url(`${import.meta.env.VITE_SERVER_ENDPOINT}/instructors/${input}`, {"search": 1});
 
     if (input.length > 2)
     {
       fetch(url)
       .then(r => r.json())
       .then(res => {
-        if (res?.status) {
-          setData([])
+        if (res?.code) {
+          setData([]);
         }
         else {
           setData(res);

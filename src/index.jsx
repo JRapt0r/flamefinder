@@ -5,7 +5,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
-    <BrowserRouter basename={process.env.MODE === 'gh-pages' ? `/${process.env.REPO_NAME}` : ""}>
+    <BrowserRouter>
         <React.StrictMode><App /></React.StrictMode>
     </BrowserRouter>,
     document.getElementById('root')

@@ -1,11 +1,11 @@
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  purge: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       fontFamily: {
-        brand: ['Poppins', 'sans-serif'],
-        sans: ['Inter', 'Roboto', 'sans-serif'],
+        brand: ['Poppins', 'Poppins-fallback', 'sans-serif'],
+        sans: ['Inter', 'Inter-fallback', 'sans-serif'],
       },
       colors: {
         // UIC colors
@@ -28,4 +28,5 @@ module.exports = {
     },
   },
   plugins: [],
+  mode: "jit"
 }

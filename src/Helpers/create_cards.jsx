@@ -1,3 +1,5 @@
+import React from "react";
+
 import CourseCard from "../Components/Cards/CourseCard";
 import ClassCard from "../Components/Cards/ClassCard";
 

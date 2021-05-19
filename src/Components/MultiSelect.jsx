@@ -20,7 +20,18 @@ function MultiSelect({callback, label}) {
       return [];
     }
 
-    const url = construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/instructors/${query}`, { search: 1, limit: 10 });
+    let url;
+
+    if (label === "instructors") {
+      url = construct_url(`${import.meta.env.VITE_SERVER_ENDPOINT}/instructors/${query.trim()}`, { search: 1, limit: 10 });
+    }
+    else if (label === "courses") {
+      url = new URL(query.trim(), `${import.meta.env.VITE_SERVER_ENDPOINT}/search/`);
+    }
+    else {
+      console.error("Invalid label");
+      return;
+    }
 
     fetch(url)
     .then(r => r.json())
@@ -53,6 +64,11 @@ function MultiSelect({callback, label}) {
 
   const getFilteredItems = () => {
     return results;
+  }
+
+  // Removes SQL match highlight
+  const clean_html = (s) => {
+    return s?.replace(/<\/{0,1}b>/ig,"");
   }
 
   const {
@@ -92,9 +108,20 @@ function MultiSelect({callback, label}) {
         case useCombobox.stateChangeTypes.InputBlur:
           if (selectedItem) {
             setInputValue("");
-            if (!selectedItems.includes(selectedItem.PrimaryInstructor)) {
-              addSelectedItem(selectedItem.PrimaryInstructor);
-              add_instructor(selectedItem.PrimaryInstructor);
+
+            if (label === "instructors") {
+              if (!selectedItems.includes(selectedItem.PrimaryInstructor)) {
+                addSelectedItem(selectedItem.PrimaryInstructor);
+                add_item(selectedItem);
+              }
+            }
+            else if (label === "courses") {
+              const code = clean_html(`${selectedItem.CRSSUBJCD} ${selectedItem.CRSNBR}`);
+
+              if ( !selectedItems.includes(code) ) {
+                addSelectedItem(code);
+                add_item(selectedItem);
+              }
             }
           }
           break
@@ -104,18 +131,40 @@ function MultiSelect({callback, label}) {
     },
   });
 
-  const remove_instructor = (inst) => {
-    setSelected(selected.filter(({PrimaryInstructor}) => inst !== PrimaryInstructor ));
+  const create_result = ({CRSSUBJCD, CRSNBR, CRSTITLE, CLASSTITLE}) => {
+    const class_title = CLASSTITLE ? (CLASSTITLE !== CRSTITLE ? `(${CLASSTITLE})` : "") : "";
+    return `${CRSSUBJCD} ${CRSNBR} ${CRSTITLE} ${class_title}`;
   }
 
-  const add_instructor = (inst) => {
-    const url = construct_url(`${process.env.REACT_APP_SERVER_ENDPOINT}/instructor/${inst}`, { compare: 1 });
+  const remove_item = (item) => {
+    setSelected(
+      selected.filter(({CRSSUBJCD, CRSNBR, PrimaryInstructor}) => {
+        if (PrimaryInstructor) {
+          return item !== PrimaryInstructor;
+        }
+        else {
+          return item !== `${CRSSUBJCD} ${CRSNBR}`;
+        }
+      })
+    );
+  }
+
+  const add_item = (d) => {
+    let url;
+
+    if (label === "instructors") {
+      url = construct_url(`${import.meta.env.VITE_SERVER_ENDPOINT}/instructor/${d.PrimaryInstructor}`, { compare: 1 });
+    }
+    else if (label === "courses") {
+      url = construct_url(`${import.meta.env.VITE_SERVER_ENDPOINT}/course_overview`,
+      { "CRSSUBJCD": clean_html(d.CRSSUBJCD), "CRSNBR": clean_html(d.CRSNBR) });
+    }
 
     fetch(url.toString())
     .then(r => r.json())
     .then(res => {
       if (res?.code) {
-        alert(JSON.stringify(res));
+        alert("No grade data on record for selected course");
         return;
       }
 
@@ -132,7 +181,6 @@ function MultiSelect({callback, label}) {
 
   return (
     <div className="flex flex-col">
-      {label && <label {...getLabelProps()}>{label}</label>}
       {/* Searchbox */}
       <div {...getComboboxProps()} className={`flex items-center w-full px-3 py-2 bg-white border border-gray-300 ${isOpen && results.length ? "rounded-t" : "rounded"} shadow md:py-3`}>
         <button aria-label="Search courses" className="focus-within:outline-none">
@@ -142,27 +190,41 @@ function MultiSelect({callback, label}) {
             </svg>
           </div>
         </button>
-        <input className="w-full pl-4 font-medium outline-none focus:placeholder-blue-700 focus:outline-none" type="search" placeholder="Search instructors"
+        <label className="sr-only" {...getLabelProps()}>Search ${label}:</label>
+        <input className="w-full pl-4 font-medium outline-none focus:placeholder-blue-700 focus:outline-none" type="search" placeholder={`Search ${label}`}
           {...getInputProps(getDropdownProps({ preventKeyAction: isOpen }),)}
         />
       </div>
       {/* Search results */}
       <ul className={`${isOpen && results.length ? 'rounded-b-lg border border-gray-300 shadow bg-white overflow-hidden' : 'hidden'}`} {...getMenuProps()} >
         {isOpen &&
-          results?.map((item, index) => (
-            <li className={`cursor-pointer font-medium p-2 ${highlightedIndex === index ? 'bg-indigo-50 text-blue-800' : 'bg-transparent'}`}
-              key={`${item}${index}`} {...getItemProps({ item, index })}>
-              {item?.PrimaryInstructor}
-            </li>
-          ))}
+          results?.map((item, index) => {
+            if (label === "instructors")
+              return (
+                <li className={`cursor-pointer font-medium p-2 ${highlightedIndex === index ? 'bg-indigo-50 text-blue-800' : 'bg-transparent'}`}
+                  key={`${item}${index}`} {...getItemProps({ item, index })}>
+                  {item?.PrimaryInstructor}
+                </li>
+              );
+            else if (label === "courses")
+              return (
+                <div {...getItemProps({ key: `${item.CRSSUBJCD}${item.CRSNBR}${index}`, index, item })} key={`${item.CRSSUBJCD}${item.CRSNBR}${(index + 1) * -1}`}>
+                  <li className={`cursor-pointer font-medium p-2 ${highlightedIndex === index ? 'bg-indigo-50 text-blue-800' : 'bg-transparent'}`}
+                    {...getItemProps({ key: `${item.CRSSUBJCD}${item.CRSNBR}${index}`, index, item })}
+                    dangerouslySetInnerHTML={{ __html: create_result(item) }}>
+                  </li>
+                </div>
+              );
+          })
+        }
       </ul>
       {/* Selected items */}
       <div className="flex flex-row flex-wrap mt-4">
         {selectedItems.map((selectedItem, index) => (
-          <div className="flex rounded-lg flex-row m-1 items-center px-2 py-0.5 font-medium text-blue-700 bg-transparent ring-1 ring-blue-700"
+          <div className="flex rounded-lg flex-row m-1 items-center px-2 py-0.5 font-medium text-blue-700 bg-white ring-1 ring-blue-700"
             key={`selected-item-${index}`} {...getSelectedItemProps({ selectedItem, index })}>
             <div className="mr-1">{selectedItem}</div>
-            <div className="cursor-pointer" onClick={e => { e.stopPropagation(); removeSelectedItem(selectedItem); remove_instructor(selectedItem); }}><CloseIcon size={18} /></div>
+            <div className="cursor-pointer" onClick={e => { e.stopPropagation(); removeSelectedItem(selectedItem); remove_item(selectedItem); }}><CloseIcon size={18} /></div>
           </div>
         ))}
       </div>
