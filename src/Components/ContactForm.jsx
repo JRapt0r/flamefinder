@@ -37,7 +37,7 @@ function ContactForm() {
         <div className="p-5 mt-4 bg-white border border-gray-300 rounded-md shadow sm:m-2 md:my-4 md:mr-4">
           <div className="text-center">
             <h1 className="my-2 text-3xl font-brand">Contact</h1>
-            <p className="text-gray-400">Fill out the form below to message us</p>
+            <p className="text-gray-500">Fill out the form below to message us</p>
           </div>
 
           <div className="m-7">

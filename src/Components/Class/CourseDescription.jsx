@@ -13,7 +13,10 @@ function process_desc(desc) {
 
     if (matches) {
       for (let i = 0; i < split_desc.length; ++i)
-        output.push(split_desc[i], <Link key={i.toString()} to={`/course/${matches[i]}`}>{matches[i]}</Link>);
+      {
+        if (matches[i])
+          output.push(split_desc[i], <Link key={i.toString()} to={`/course/${matches[i]}`}>{matches[i]}</Link>);
+      }
 
       return <div>{output}</div>;
     }
@@ -28,7 +31,7 @@ function process_desc(desc) {
 
 function CourseDescription({ course_desc }) {
   return (
-    <div className="flex flex-row flex-wrap justify-between order-4 leading-7 md:mt-4 break-words">
+    <div className="flex flex-row flex-wrap justify-between order-4 leading-7 break-words md:mt-4">
       <div className="flex flex-col">
         <div className="text-xl font-semibold md:text-2xl">Course Description</div>
         <div className="mt-2 md:text-lg course-desc">
