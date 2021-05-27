@@ -14,8 +14,11 @@ FlameFinder is not associated with UIC or the University of Illinois system.
 ## Overview
 
 - Built with React + TailwindCSS + Vite
+- Data visualized with Google Charts
 - Responsive, mobile friendly design
 - SPA routing via react-router
+
+The back-end code is also open source and available [here](https://github.com/JRapt0r/flamefinder-server/).
 
 ## Requirements
 
@@ -25,7 +28,12 @@ FlameFinder is not associated with UIC or the University of Illinois system.
 
 ## Contributing
 
+First, clone this repository and then use the following commands:
+
 ``` bash
+# Navigate to the root directory
+cd flamefinder
+
 # Create .env file for server endpoint
 echo "VITE_SERVER_ENDPOINT = 'http://localhost:5001'" >> .env
 
@@ -38,6 +46,8 @@ npm run dev
 # build for production
 npm run build
 ```
+
+Then, clone the [server](https://github.com/JRapt0r/flamefinder-server) repository and follow the instructions given there.
 
 Known issues
 -------------
